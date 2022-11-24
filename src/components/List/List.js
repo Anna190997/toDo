@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ListItems from '../ListItems/ListItems';
 
-const List = ({ listOfItems, deleteHandler }) => {
+const List = ({ list, deleteHandler, setList }) => {
+  const [updateItem, setUpdateItem] = useState(null);
   return (
     <div>
-      {listOfItems.map((item) => (
-        <ListItems itemsText={item.text} key={item.id} deleteHandler={deleteHandler} id={item.id} />
+      {list.map((item) => (
+        <ListItems
+          item={item}
+          key={item.id}
+          setList={setList}
+          updatedItem={updateItem}
+          setUpdateItem={setUpdateItem}
+          deleteHandler={deleteHandler}
+          id={item.id}
+        />
       ))}
     </div>
   );

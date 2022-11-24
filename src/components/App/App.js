@@ -4,15 +4,12 @@ import List from '../List/List';
 import Form from '../Form/Form';
 import './App.scss';
 import { useState } from 'react';
+import LIST from '../../constants';
 
 const App = () => {
   const [value, setValue] = useState('');
 
-  const [listOfItems, setListOfItems] = useState([
-    { id: 1, text: 'Сходить в магазин' },
-    { id: 2, text: 'Прочитать книгу' },
-    { id: 3, text: 'Сделать уроки' },
-  ]);
+  const [list, setList] = useState(LIST);
 
   const handleChange = (value) => {
     setValue(value);
@@ -20,14 +17,14 @@ const App = () => {
 
   const addHandler = (event) => {
     event.preventDefault();
-    setListOfItems((list) => {
+    setList((list) => {
       return [{ id: Math.random().toString(36).substring(7), text: value }, ...list];
     });
     setValue('');
   };
-  
+
   const deleteHandler = (id) => {
-    setListOfItems((list) => {
+    setList((list) => {
       return list.filter((listOfItems) => listOfItems.id !== id);
     });
   };
@@ -36,7 +33,7 @@ const App = () => {
     <>
       <Title title="Список дел" />
       <Form onChange={handleChange} value={value} onClick={addHandler} />
-      <List listOfItems={listOfItems} deleteHandler={deleteHandler} />
+      <List list={list} deleteHandler={deleteHandler} setList={setList} />
     </>
   );
 };
